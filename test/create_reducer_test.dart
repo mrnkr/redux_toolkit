@@ -5,13 +5,19 @@ import 'package:test/test.dart';
 import 'test_actions.dart';
 import 'test_state.dart';
 
+class SingleTestThunk {}
+
+class DoubleTestThunk {}
+
 void main() {
-  group('Create reducer', () {
-    Reducer<TestState> reducer;
+  group('create reducer', () {
     final TestState initialState = TestState(items: List.unmodifiable([]));
+    
+    Reducer<TestState> testStateReducer;
+    Reducer<int> listReducer;
 
     setUp(() {
-      reducer = createReducer<TestState>(initialState, (builder) {
+      testStateReducer = createReducer<TestState>(initialState, (builder) {
         builder
             .addCase<RequestItemsAction>(
                 (state, action) => state.copyWith(isLoading: true))
@@ -20,15 +26,23 @@ void main() {
             .addCase<FetchItemsErrorAction>((state, action) =>
                 state.copyWith(isLoading: false, error: action.error));
       });
+
+      listReducer = createReducer<int>(0, (builder) {
+        builder
+          .addCase<Fulfilled<SingleTestThunk, String, void>>(
+            (state, action) => 1)
+          .addCase<Fulfilled<DoubleTestThunk, String, void>>(
+            (state, action) => 2);
+      });
     });
 
     test('should yield the initialState', () {
-      final result = reducer(initialState, SomeUnhandledAction());
+      final result = testStateReducer(initialState, SomeUnhandledAction());
       expect(result, equals(initialState));
     });
 
     test('should yield a loading state', () {
-      final result = reducer(initialState, RequestItemsAction());
+      final result = testStateReducer(initialState, RequestItemsAction());
       expect(result.isLoading, isTrue);
     });
 
@@ -39,7 +53,7 @@ void main() {
       ]);
 
       final prevState = initialState.copyWith(isLoading: true);
-      final result = reducer(
+      final result = testStateReducer(
           prevState,
           FetchItemsSuccessfulAction(
             payload: items,
@@ -55,7 +69,7 @@ void main() {
       ]);
 
       final prevState = initialState.copyWith(isLoading: true);
-      final result = reducer(
+      final result = testStateReducer(
           prevState,
           FetchItemsSuccessfulAction(
             payload: items,
@@ -68,7 +82,7 @@ void main() {
       final error = Exception("Hehe you failed");
 
       final prevState = initialState.copyWith(isLoading: true);
-      final result = reducer(
+      final result = testStateReducer(
           prevState,
           FetchItemsErrorAction(
             error: error,
@@ -81,13 +95,31 @@ void main() {
       final error = Exception("Hehe you failed");
 
       final prevState = initialState.copyWith(isLoading: true);
-      final result = reducer(
+      final result = testStateReducer(
           prevState,
           FetchItemsErrorAction(
             error: error,
           ));
 
       expect(result.error, equals(error));
+    });
+
+    test('should yield list with only SingleTestThunk', () {
+      final result = listReducer(
+        0,
+        Fulfilled<SingleTestThunk, String, void>('SingleTestThunk', null),
+      );
+
+      expect(result, equals(1));
+    });
+    
+    test('should yield list with only DoubleTestThunk', () {
+      final result = listReducer(
+        0,
+        Fulfilled<DoubleTestThunk, String, void>('DoubleTestThunk', null),
+      );
+
+      expect(result, equals(2));
     });
   });
 }

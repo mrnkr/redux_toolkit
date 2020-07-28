@@ -1,8 +1,8 @@
 import 'package:redux/redux.dart';
 
-typedef CaseReducer<State, Action> = State Function(State, Action);
-typedef DefaultCaseReducer<State> = State Function(State);
-typedef BuilderCallback<State> = Function(ActionReducerMapBuilder<State>);
+typedef CaseReducer<State, Action> = State Function(State state, Action action);
+typedef DefaultCaseReducer<State> = State Function(State state);
+typedef BuilderCallback<State> = Function(ActionReducerMapBuilder<State> builder);
 
 abstract class ActionReducerMapBuilder<State> {
   ActionReducerMapBuilder<State> addCase<Action>(CaseReducer<State, Action> reducer);
@@ -47,10 +47,7 @@ Reducer<State> createReducer<State>(State initialState, BuilderCallback<State> b
   final actionReducerMap = builder.build();
 
   return (state, action) {
-    if (state == null) {
-      state = initialState;
-    }
-
+    state = state ?? initialState;
     return actionReducerMap.getReducerForAction(action.runtimeType)(state, action);
   };
 }
