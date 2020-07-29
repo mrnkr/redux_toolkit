@@ -12,9 +12,10 @@ class DoubleTestThunk {}
 void main() {
   group('create reducer', () {
     final TestState initialState = TestState(items: List.unmodifiable([]));
-    
+
     Reducer<TestState> testStateReducer;
     Reducer<int> listReducer;
+    Reducer<bool> statusReducer;
 
     setUp(() {
       testStateReducer = createReducer<TestState>(initialState, (builder) {
@@ -29,10 +30,21 @@ void main() {
 
       listReducer = createReducer<int>(0, (builder) {
         builder
-          .addCase<Fulfilled<SingleTestThunk, String, void>>(
-            (state, action) => 1)
-          .addCase<Fulfilled<DoubleTestThunk, String, void>>(
-            (state, action) => 2);
+            .addCase<Fulfilled<SingleTestThunk, String, void>>(
+                (state, action) => 1)
+            .addCase<Fulfilled<DoubleTestThunk, String, void>>(
+                (state, action) => 2);
+      });
+
+      statusReducer = createReducer<bool>(false, (builder) {
+        builder
+            .addMatcher(
+                (action) => action.runtimeType.toString().startsWith('Pending'),
+                (state, action) => true)
+            .addMatcher(
+                (action) =>
+                    action.runtimeType.toString().startsWith('Fulfilled'),
+                (state, action) => false);
       });
     });
 
@@ -112,7 +124,7 @@ void main() {
 
       expect(result, equals(1));
     });
-    
+
     test('should yield list with only DoubleTestThunk', () {
       final result = listReducer(
         0,
@@ -120,6 +132,16 @@ void main() {
       );
 
       expect(result, equals(2));
+    });
+
+    test('should yield that the thing is loading', () {
+      final result = statusReducer(false, Pending<SingleTestThunk, void>(null));
+      expect(result, isTrue);
+    });
+    
+    test('should yield that the thing is not loading', () {
+      final result = statusReducer(true, Fulfilled<SingleTestThunk, String, void>('SingleTestThunk', null));
+      expect(result, isFalse);
     });
   });
 }
