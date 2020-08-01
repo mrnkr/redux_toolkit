@@ -119,7 +119,7 @@ void main() {
     test('should yield list with only SingleTestThunk', () {
       final result = listReducer(
         0,
-        Fulfilled<SingleTestThunk, String, void>('SingleTestThunk', null),
+        Fulfilled<SingleTestThunk, String, void>('SingleTestThunk', null, '160a4d7a-8da2-4855-abe7-1b64fc7d6a37'),
       );
 
       expect(result, equals(1));
@@ -128,19 +128,19 @@ void main() {
     test('should yield list with only DoubleTestThunk', () {
       final result = listReducer(
         0,
-        Fulfilled<DoubleTestThunk, String, void>('DoubleTestThunk', null),
+        Fulfilled<DoubleTestThunk, String, void>('DoubleTestThunk', null, 'b5c75946-3e7a-4f82-be1f-3a08d6e24a53'),
       );
 
       expect(result, equals(2));
     });
 
     test('should yield that the thing is loading', () {
-      final result = statusReducer(false, Pending<SingleTestThunk, void>(null));
+      final result = statusReducer(false, Pending<SingleTestThunk, void>(null, 'ec8163d3-7212-4e4b-b72e-71c24dab8ddd'));
       expect(result, isTrue);
     });
     
     test('should yield that the thing is not loading', () {
-      final result = statusReducer(true, Fulfilled<SingleTestThunk, String, void>('SingleTestThunk', null));
+      final result = statusReducer(true, Fulfilled<SingleTestThunk, String, void>('SingleTestThunk', null, 'dbf55b7f-c804-46d2-be28-a6db17d3d65a'));
       expect(result, isFalse);
     });
   });

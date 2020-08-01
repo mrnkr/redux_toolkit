@@ -1,3 +1,6 @@
+import 'package:meta/meta.dart';
+
+@immutable
 abstract class PayloadAction<Payload, Meta, Error> {
   final Payload payload;
   final Meta meta;

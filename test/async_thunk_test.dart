@@ -20,11 +20,12 @@ void main() {
       await thunk.call(store);
       verify(store.dispatch(argThat(isA<Pending<StringLength, String>>())));
     });
-    
+
     test('should dispatch Fulfilled<StringLength, int, String>', () async {
       final thunk = StringLength('hello');
       await thunk.call(store);
-      verify(store.dispatch(argThat(isA<Fulfilled<StringLength, int, String>>())));
+      verify(
+          store.dispatch(argThat(isA<Fulfilled<StringLength, int, String>>())));
     });
 
     test('should dispatch Pending<EpicFail, String>', () async {
@@ -32,11 +33,24 @@ void main() {
       await thunk.call(store);
       verify(store.dispatch(argThat(isA<Pending<EpicFail, String>>())));
     });
-    
+
     test('should dispatch Rejected<EpicFail, String, dynamic>', () async {
       final thunk = EpicFail('hello');
       await thunk.call(store);
-      verify(store.dispatch(argThat(isA<Rejected<EpicFail, String, dynamic>>())));
+      verify(
+          store.dispatch(argThat(isA<Rejected<EpicFail, String, dynamic>>())));
+    });
+
+    test('should dispatch all actions with the same meta.requestId', () async {
+      final thunk = StringLength('hello');
+      await thunk.call(store);
+      final dispatched = verify(store.dispatch(captureAny)).captured;
+      final requestId = dispatched.first.meta.requestId;
+      expect(
+          dispatched
+              .map((action) => action.meta.requestId)
+              .every((element) => element == requestId),
+          isTrue);
     });
   });
 }
