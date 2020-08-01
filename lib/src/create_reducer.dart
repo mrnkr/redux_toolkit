@@ -53,10 +53,10 @@ class _ActionReducerMapBuilder<State>
       return _actionsMap[action.runtimeType];
     }
 
-    if (_actionMatchers.keys.any((matcher) => matcher(action))) {
-      return _actionMatchers.entries
-          .firstWhere((element) => element.key(action))
-          .value;
+    for (final entry in _actionMatchers.entries) {
+      if (entry.key(action)) {
+        return entry.value;
+      }
     }
 
     return _defaultCaseReducer;
