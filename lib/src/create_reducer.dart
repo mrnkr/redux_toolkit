@@ -22,13 +22,13 @@ abstract class ActionReducerMap<State> {
 
 class _ActionReducerMapBuilder<State>
     implements ActionReducerMapBuilder<State>, ActionReducerMap<State> {
-  final Map<Type, CaseReducer<State, dynamic>> _actionsMap = {};
+  final Map<String, CaseReducer<State, dynamic>> _actionsMap = {};
   final Map<ActionMatcher, CaseReducer<State, dynamic>> _actionMatchers = {};
   CaseReducer<State, dynamic> _defaultCaseReducer = (state, action) => state;
 
   ActionReducerMapBuilder<State> addCase<Action>(
       CaseReducer<State, Action> reducer) {
-    _actionsMap[Action] = (state, action) => reducer(state, action);
+    _actionsMap[Action.toString()] = (state, action) => reducer(state, action);
     return this;
   }
 
@@ -49,8 +49,8 @@ class _ActionReducerMapBuilder<State>
   }
 
   CaseReducer<State, dynamic> getReducerForAction(dynamic action) {
-    if (_actionsMap.containsKey(action.runtimeType)) {
-      return _actionsMap[action.runtimeType];
+    if (_actionsMap.containsKey(action.runtimeType.toString())) {
+      return _actionsMap[action.runtimeType.toString()];
     }
 
     for (final entry in _actionMatchers.entries) {
