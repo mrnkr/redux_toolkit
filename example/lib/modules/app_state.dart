@@ -12,6 +12,10 @@ class AppState {
 
   AppState({this.status, this.todos});
 
-  factory AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
+  factory AppState.initialState() =>
+      AppState(status: Map.unmodifiable({}), todos: List.unmodifiable([]));
+
+  factory AppState.fromJson(Map<String, dynamic> json) =>
+      _$AppStateFromJson(json);
   Map<String, dynamic> toJson() => _$AppStateToJson(this);
 }

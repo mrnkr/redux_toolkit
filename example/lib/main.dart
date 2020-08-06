@@ -11,7 +11,7 @@ Future main() async {
 
   final store = await configureStore<AppState>((builder) {
     builder.withReducer(reducer);
-    builder.withPreloadedState(AppState(status: {}, todos: List.unmodifiable([])));
+    builder.withPreloadedState(AppState.initialState());
 
     if (Config.reduxDevtoolsEnabled) {
       builder.usingDevtools(Config.reduxDevtoolsUrl);
