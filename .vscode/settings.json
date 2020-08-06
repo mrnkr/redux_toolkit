@@ -1,0 +1,18 @@
+{
+    "files.exclude": {
+        "**/.circleci": true,
+        "**/.dart_tool": true,
+        "**/.flutter-plugins*": true,
+        "**/.idea": true,
+        "**/.packages": true,
+        "**/.vscode": true,
+        "**/*.g.dart": true,
+        "**/bin": true,
+        "**/dist": true,
+        "**/node_modules": true,
+        "**/obj": true,
+        "**/package-lock.json": true,
+        "**/pubspec.lock": true,
+        "**/yarn.lock": true
+    }
+}
