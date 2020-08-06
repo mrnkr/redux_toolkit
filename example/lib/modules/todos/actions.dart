@@ -1,12 +1,11 @@
 import 'dart:convert';
 
+import 'package:example/modules/app_state.dart';
+import 'package:example/config.dart';
+import 'package:example/todo.dart';
 import 'package:meta/meta.dart';
 import 'package:redux_toolkit/redux_toolkit.dart';
 import 'package:http/http.dart' as http;
-
-import 'app_state.dart';
-import 'config.dart';
-import 'todo.dart';
 
 @immutable
 class FetchTodos extends AsyncThunk<FetchTodos, AppState, void, List<Todo>> {

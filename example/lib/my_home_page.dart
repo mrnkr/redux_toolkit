@@ -1,11 +1,12 @@
+import 'package:example/modules/app_state.dart';
+import 'package:example/modules/todos/actions.dart';
+import 'package:example/modules/todos/selectors.dart';
+import 'package:example/todo.dart';
 import 'package:example/todo_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget, useEffect;
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'actions.dart';
-import 'app_state.dart';
-import 'todo.dart';
 
 class MyHomePage extends HookWidget {
   @override
@@ -21,7 +22,7 @@ class MyHomePage extends HookWidget {
         title: Text('Todos'),
       ),
       body: StoreConnector<AppState, List<Todo>>(
-        converter: (store) => store.state.todos,
+        converter: (store) => selectAllTodos(store.state),
         builder: (context, todos) => ListView.builder(
             itemCount: todos.length,
             itemBuilder: (context, idx) => TodoListItem(todo: todos[idx])),

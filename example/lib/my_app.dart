@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'app_state.dart';
+import 'modules/app_state.dart';
 import 'my_home_page.dart';
 
 class MyApp extends StatelessWidget {

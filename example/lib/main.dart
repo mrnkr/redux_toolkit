@@ -1,10 +1,9 @@
+import 'package:example/config.dart';
+import 'package:example/modules/app_reducer.dart';
+import 'package:example/modules/app_state.dart';
+import 'package:example/my_app.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_toolkit/redux_toolkit.dart';
-
-import 'app_state.dart';
-import 'config.dart';
-import 'my_app.dart';
-import 'reducer.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +11,7 @@ Future main() async {
 
   final store = await configureStore<AppState>((builder) {
     builder.withReducer(reducer);
-    builder.withPreloadedState(AppState(loading: false, todos: List.unmodifiable([])));
+    builder.withPreloadedState(AppState(status: {}, todos: List.unmodifiable([])));
 
     if (Config.reduxDevtoolsEnabled) {
       builder.usingDevtools(Config.reduxDevtoolsUrl);
