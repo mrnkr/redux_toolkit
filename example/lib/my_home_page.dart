@@ -1,3 +1,4 @@
+import 'package:example/todo_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget, useEffect;
 import 'package:flutter_redux/flutter_redux.dart';
@@ -23,7 +24,7 @@ class MyHomePage extends HookWidget {
         converter: (store) => store.state.todos,
         builder: (context, todos) => ListView.builder(
             itemCount: todos.length,
-            itemBuilder: (context, idx) => Text(todos[idx].title)),
+            itemBuilder: (context, idx) => TodoListItem(todo: todos[idx])),
       ),
     );
   }

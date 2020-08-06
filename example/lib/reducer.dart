@@ -5,7 +5,7 @@ import 'app_state.dart';
 import 'todo.dart';
 
 final reducer = createReducer<AppState>(
-    AppState(todos: List.unmodifiable([])),
+    AppState(loading: false, todos: List.unmodifiable([])),
     (builder) => builder
         .addCase<Fulfilled<FetchTodos, List<Todo>, void>>(
             (state, action) => AppState(loading: false, todos: action.payload))
