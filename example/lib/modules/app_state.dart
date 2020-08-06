@@ -1,4 +1,4 @@
-import 'package:example/todo.dart';
+import 'package:example/model/todo.dart';
 import 'package:meta/meta.dart';
 import 'package:json_annotation/json_annotation.dart';
 

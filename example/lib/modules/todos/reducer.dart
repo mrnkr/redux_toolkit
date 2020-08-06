@@ -1,5 +1,5 @@
+import 'package:example/model/todo.dart';
 import 'package:example/modules/todos/actions.dart';
-import 'package:example/todo.dart';
 import 'package:redux_toolkit/redux_toolkit.dart';
 
 final todosReducer = createReducer(

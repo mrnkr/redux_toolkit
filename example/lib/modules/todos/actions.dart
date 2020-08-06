@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:example/model/todo.dart';
 import 'package:example/modules/app_state.dart';
 import 'package:example/config.dart';
-import 'package:example/todo.dart';
 import 'package:meta/meta.dart';
 import 'package:redux_toolkit/redux_toolkit.dart';
 import 'package:http/http.dart' as http;

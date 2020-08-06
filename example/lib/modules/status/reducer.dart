@@ -1,7 +1,7 @@
 import 'package:redux_toolkit/redux_toolkit.dart';
 
 bool _isGeneric(dynamic a) =>
-    a.runtimeTypeoString().contains('<') &&
+    a.runtimeType.toString().contains('<') &&
     a.runtimeType.toString().contains('>');
 String _typeOfAction(dynamic a) => a.runtimeType.toString().split('<')[0];
 String _typeOfThunk(dynamic a) =>
@@ -12,6 +12,6 @@ final statusReducer = createReducer(
     (builder) => builder.addMatcher(
         (action) =>
             _isGeneric(action) &&
-            ['Pending', 'Rejected'].contains(_typeOfAction(action)),
+            ['Pending', 'Fulfilled', 'Rejected'].contains(_typeOfAction(action)),
         (state, action) =>
-            {...state, _typeOfThunk(action): _typeOfAction(action)}));
+            Map.unmodifiable({...state, _typeOfThunk(action): _typeOfAction(action)})));
