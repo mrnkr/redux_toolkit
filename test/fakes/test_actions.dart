@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'test_state.dart';
+import '../fakes/test_state.dart';
 
 abstract class Action<T> {
   final T payload;

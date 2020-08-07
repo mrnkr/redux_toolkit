@@ -2,8 +2,8 @@ import 'package:redux/redux.dart';
 import 'package:redux_toolkit/redux_toolkit.dart';
 import 'package:test/test.dart';
 
-import 'test_actions.dart';
-import 'test_state.dart';
+import '../fakes/test_actions.dart';
+import '../fakes/test_state.dart';
 
 class SingleTestThunk {}
 

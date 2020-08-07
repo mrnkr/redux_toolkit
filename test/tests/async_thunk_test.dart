@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_toolkit/redux_toolkit.dart';
 
-import 'test_thunks.dart';
+import '../fakes/test_thunks.dart';
 
 class MockStore extends Mock implements Store<int> {}
 
