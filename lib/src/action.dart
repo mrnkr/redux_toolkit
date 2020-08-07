@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 
+/// Interface to use for your custom actions
 @immutable
 abstract class PayloadAction<Payload, Meta, Error> {
   final Payload payload;

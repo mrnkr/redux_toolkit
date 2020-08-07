@@ -1,6 +1,6 @@
 name: redux_toolkit
 description: Dart port of the official, opinionated, batteries-included toolset for efficient Redux development
-version: 0.0.1
+version: 0.1.0
 
 environment:
   sdk: '>=2.0.0-dev.28.0 <3.0.0'
