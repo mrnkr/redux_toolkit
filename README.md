@@ -204,6 +204,15 @@ class MyAction extends PayloadAction<Payload, Meta, Error> {
 }
 ```
 
+Another, simpler, example is this class I took from the example. It's the action I dispatch when I want to complete a TODO item when I tap on one:
+
+```dart
+@immutable
+class CompleteTodo extends PayloadAction<Todo, dynamic, dynamic> {
+  const CompleteTodo(Todo todo) : super(payload: todo);
+}
+```
+
 ### `AsyncThunk` abstract class
 
 Again, no `createAsyncThunk` like in the original but an abstract class. This is an application of the template method design pattern so I'll allow you to specify your operation that returns a `Future` by overriding the `run` method and I'll take care of dispatching actions as the state of your `Future` evolves.

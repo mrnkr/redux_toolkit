@@ -90,6 +90,31 @@ class _ActionReducerMapBuilder<State>
 
 /// Abstraction that allows to create a reducer without
 /// writing tons of `if` statements one after the other.
+/// 
+/// ### Examples
+/// 
+/// ```dart
+/// final todosReducer = createReducer<List<Todo>>(
+///     List.unmodifiable([]),
+///     (builder) => builder
+///         .addCase<Fulfilled<FetchTodos, List<Todo>, void>>(
+///             (state, action) => action.payload)
+///         .addCase<CompleteTodo>((state, action) => List.unmodifiable(state
+///             .map<Todo>((e) =>
+///                 e.id == action.payload.id ? e.copyWith(completed: true) : e)
+///             .toList())));
+/// ```
+/// 
+/// ```dart
+/// final statusReducer = createReducer(
+///     Map<String, String>.unmodifiable({}),
+///     (builder) => builder.addMatcher(
+///         (action) =>
+///             _isGeneric(action) &&
+///             ['Pending', 'Fulfilled', 'Rejected'].contains(_typeOfAction(action)),
+///         (state, action) =>
+///             Map.unmodifiable({...state, _typeOfThunk(action): _typeOfAction(action)})));
+/// ```
 Reducer<State> createReducer<State>(
     State initialState, BuilderCallback<State> builderCallback) {
   final builder = _ActionReducerMapBuilder<State>();

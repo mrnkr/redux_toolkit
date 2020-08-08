@@ -17,49 +17,50 @@ class Meta<T> {
 
 /// Action that gets dispatched when an `AsyncThunk`
 /// starts being processed.
-/// 
+///
 /// Will come with the `payload` passed to the thunk
 /// within its `meta` member.
 @immutable
-class Pending<T, M> extends PayloadAction<dynamic, Meta<M>, dynamic> {
+class Pending<T, M> extends PayloadAction<void, Meta<M>, void> {
   Pending(M meta, String requestId) : super(meta: Meta(meta, requestId));
 }
 
 /// Action that gets dispatched when an `AsyncThunk`
 /// finishes successfully.
-/// 
+///
 /// Will have the `payload` that was initially passed
 /// to the thunk within its `meta` and the result
 /// of the operation in its `payload`.
 @immutable
-class Fulfilled<T, P, M> extends PayloadAction<P, Meta<M>, dynamic> {
-  Fulfilled(P payload, M meta, String requestId) : super(payload: payload, meta: Meta(meta, requestId));
+class Fulfilled<T, P, M> extends PayloadAction<P, Meta<M>, void> {
+  Fulfilled(P payload, M meta, String requestId)
+      : super(payload: payload, meta: Meta(meta, requestId));
 }
-
 
 /// Action that gets dispatched when an `AsyncThunk`
 /// finishes with an error.
-/// 
+///
 /// Will have the error that occurred in its `error`
 /// member and within its `meta` you'll find the
 /// `payload` that was initially passed to the thunk.
 @immutable
-class Rejected<T, M, E> extends PayloadAction<dynamic, Meta<M>, E> {
-  Rejected(M meta, E error, String requestId) : super(meta: Meta(meta, requestId), error: error);
+class Rejected<T, M, E> extends PayloadAction<void, Meta<M>, E> {
+  Rejected(M meta, E error, String requestId)
+      : super(meta: Meta(meta, requestId), error: error);
 }
 
 /// Abstraction to make thunks that just deal with a `Future`
 /// adhere to a standard.
-/// 
+///
 /// Before the `Future` starts processing this will dispatch a `Pending` action.
-/// 
+///
 /// After the `Future` resolves successfully this will dispatch a `Fulfilled` action.
-/// 
+///
 /// After the `Future` fails this will dispatch a `Rejected` action.
-/// 
-/// 
+///
+///
 /// ### Example
-/// 
+///
 /// ```dart
 /// @immutable
 /// class FetchTodos extends AsyncThunk<FetchTodos, AppState, void, List<Todo>> {
@@ -72,9 +73,10 @@ class Rejected<T, M, E> extends PayloadAction<dynamic, Meta<M>, E> {
 /// }
 /// ```
 @immutable
-abstract class AsyncThunk<Self, State, Payload, Result> implements CallableThunkAction<State> {
+abstract class AsyncThunk<Self, State, Payload, Result>
+    implements CallableThunkAction<State> {
   final Payload payload;
-  
+
   const AsyncThunk([this.payload]);
 
   Future<Result> run();
