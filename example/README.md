@@ -1,16 +1,13 @@
 # example
 
-A new Flutter project.
+Simple todo list app.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Make sure you check the `environment.yaml` file is correct. Check whether you want remote devtools to be enabled and where you want them to connect.
+2. Launch the app in your simulator or device of choice.
+3. Hopefully, see how nice this stuff is :)
 
-A few resources to get you started if this is your first Flutter project:
+<img src="screenshots/screenshot1.png" alt="screenshot" height="512" width="237" />
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app loads all todos from the [`json placeholder api`](https://jsonplaceholder.typicode.com) and lists them. You can tap on todos that have not been completed yet to complete them locally. You can check out the thunk I used to load the list, the synchronous action I use to complete todos, the reducers for both the list and the application status and my store setup. There are also some selectors and functional widgets made with [`functional_widget`](https://github.com/rrousselGit/functional_widget).
