@@ -11,7 +11,7 @@ class DoubleTestThunk {}
 
 void main() {
   group('create reducer', () {
-    final TestState initialState = TestState(items: List.unmodifiable([]));
+    final initialState = TestState(items: List.unmodifiable([]));
 
     Reducer<TestState> testStateReducer;
     Reducer<int> listReducer;
@@ -60,8 +60,8 @@ void main() {
 
     test('should yield a non loading state (FetchItemsSuccessfulAction)', () {
       final items = List<Item>.unmodifiable([
-        Item(id: 1, title: "Item 1"),
-        Item(id: 2, title: "Item 2"),
+        Item(id: 1, title: 'Item 1'),
+        Item(id: 2, title: 'Item 2'),
       ]);
 
       final prevState = initialState.copyWith(isLoading: true);
@@ -76,8 +76,8 @@ void main() {
 
     test('should yield a state with some items', () {
       final items = List<Item>.unmodifiable([
-        Item(id: 1, title: "Item 1"),
-        Item(id: 2, title: "Item 2"),
+        Item(id: 1, title: 'Item 1'),
+        Item(id: 2, title: 'Item 2'),
       ]);
 
       final prevState = initialState.copyWith(isLoading: true);
@@ -91,7 +91,7 @@ void main() {
     });
 
     test('should yield a non loading state, (FetchItemsErrorAction)', () {
-      final error = Exception("Hehe you failed");
+      final error = Exception('Hehe you failed');
 
       final prevState = initialState.copyWith(isLoading: true);
       final result = testStateReducer(
@@ -104,7 +104,7 @@ void main() {
     });
 
     test('should yield an error state', () {
-      final error = Exception("Hehe you failed");
+      final error = Exception('Hehe you failed');
 
       final prevState = initialState.copyWith(isLoading: true);
       final result = testStateReducer(

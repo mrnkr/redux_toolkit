@@ -47,18 +47,21 @@ class _ActionReducerMapBuilder<State>
   final Map<ActionMatcher, CaseReducer<State, dynamic>> _actionMatchers = {};
   CaseReducer<State, dynamic> _defaultCaseReducer = (state, action) => state;
 
+  @override
   ActionReducerMapBuilder<State> addCase<Action>(
       CaseReducer<State, Action> reducer) {
     _actionsMap[Action.toString()] = (state, action) => reducer(state, action);
     return this;
   }
 
+  @override
   ActionReducerMapBuilder<State> addMatcher<Action>(
       ActionMatcher<Action> actionMatcher, CaseReducer<State, Action> reducer) {
     _actionMatchers[actionMatcher] = (state, action) => reducer(state, action);
     return this;
   }
 
+  @override
   ActionReducerMapBuilder<State> addDefaultCase(
       DefaultCaseReducer<State> reducer) {
     _defaultCaseReducer = (state, action) => reducer(state);
@@ -69,6 +72,7 @@ class _ActionReducerMapBuilder<State>
     return this;
   }
 
+  @override
   CaseReducer<State, dynamic> getReducerForAction(dynamic action) {
     if (_actionsMap.containsKey(action.runtimeType.toString())) {
       return _actionsMap[action.runtimeType.toString()];

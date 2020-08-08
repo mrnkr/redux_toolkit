@@ -185,13 +185,13 @@ abstract class ActionReducerMapBuilder<State> {
 Reducer<State> createReducer<State>(State initialState, BuilderCallback<State> builderCallback);
 ```
 
-### `PayloadAction` interface
+### `PayloadAction` abstract class
 
 Since in flutter we use a different class for each action and that's how we differentiate them there is no `createAction` function like there is in the original `redux-toolkit` for `js` but there is a `PayloadAction` interface for you to implement so that all your actions follow the same format.
 
 ```dart
 @immutable
-class MyAction implements PayloadAction<Payload, Meta, Error> {
+class MyAction extends PayloadAction<Payload, Meta, Error> {
   const PayloadAction({
     Payload payload,
     Meta meta,
@@ -206,7 +206,7 @@ class MyAction implements PayloadAction<Payload, Meta, Error> {
 
 ### `AsyncThunk` abstract class
 
-Again, no `createAsyncThunk` like in the original but an abstract class. Notice how I usually call abstract classes that I expect you to implement interfaces regardless of them being abstract classes in dart, well, in this case I expect you to extend. This is an application of the template method design pattern so I'll allow you to specify your operation that returns a `Future` by overriding the `run` method and I'll take care of dispatching actions as the state of your `Future` evolves.
+Again, no `createAsyncThunk` like in the original but an abstract class. This is an application of the template method design pattern so I'll allow you to specify your operation that returns a `Future` by overriding the `run` method and I'll take care of dispatching actions as the state of your `Future` evolves.
 
 The next example shows a thunk that fetches a list of todos from the [JSON Placeholder API](https://jsonplaceholder.typicode.com) and transforms the json it receives into a model class.
 

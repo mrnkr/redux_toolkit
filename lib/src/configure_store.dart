@@ -54,25 +54,29 @@ class _StoreBuilder<State> implements StoreBuilder<State> {
 
   State _preloadedState;
   Reducer<State> _reducer;
-  List<Middleware<State>> _middleware = [thunkMiddleware];
+  final List<Middleware<State>> _middleware = [thunkMiddleware];
   bool _devTools = false;
   String _devToolsIpAddr;
 
+  @override
   StoreBuilder<State> withReducer(Reducer<State> reducer) {
     _reducer = reducer;
     return this;
   }
 
+  @override
   StoreBuilder<State> withPreloadedState(State preloadedState) {
     _preloadedState = preloadedState;
     return this;
   }
 
+  @override
   StoreBuilder<State> withMiddleware(Middleware<State> middleware) {
     _middleware.add(middleware);
     return this;
   }
 
+  @override
   StoreBuilder<State> usingDevtools(String devToolsIpAddr) {
     assert(_ipAddrRegex.hasMatch(devToolsIpAddr));
 
