@@ -16,3 +16,8 @@ class FetchTodos extends AsyncThunk<FetchTodos, AppState, void, List<Todo>> {
     return list.map((e) => Todo.fromJson(e)).toList();
   }
 }
+
+@immutable
+class CompleteTodo extends PayloadAction<Todo, void, void> {
+  const CompleteTodo(Todo todo) : super(payload: todo);
+}

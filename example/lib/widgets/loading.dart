@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 
-class Loading extends StatelessWidget {
-  final bool loading;
-  final Widget child;
+part 'loading.g.dart';
 
-  const Loading({this.loading, this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return loading ? Center(child: CircularProgressIndicator()) : child;
-  }
+@hwidget
+Widget loading({bool isLoading, Widget child}) {
+  return isLoading ? Center(child: CircularProgressIndicator()) : child;
 }
