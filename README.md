@@ -1,6 +1,7 @@
 # redux_toolkit
 
 [![pub package](https://img.shields.io/pub/v/redux_toolkit.svg)](https://pub.dartlang.org/packages/redux_toolkit)
+[![license](https://img.shields.io/github/license/mrnkr/redux_toolkit)](https://github.com/mrnkr/redux_toolkit/blob/master/LICENSE)
 [![Build Status](https://travis-ci.com/mrnkr/redux_toolkit.svg?branch=master)](https://travis-ci.com/mrnkr/redux_toolkit)
 [![codecov](https://codecov.io/gh/mrnkr/redux_toolkit/branch/master/graph/badge.svg)](https://codecov.io/gh/mrnkr/redux_toolkit)
 
