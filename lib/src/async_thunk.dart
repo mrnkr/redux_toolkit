@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
@@ -13,6 +14,9 @@ class Meta<T> {
   final String requestId;
 
   const Meta(this.arg, this.requestId);
+
+  Map<String, dynamic> toJson() =>
+      {'requestId': requestId, 'arg': jsonDecode(jsonEncode(arg))};
 }
 
 /// Action that gets dispatched when an `AsyncThunk`

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
@@ -51,6 +53,23 @@ void main() {
               .map((action) => action.meta.requestId)
               .every((element) => element == requestId),
           isTrue);
+    });
+
+    test('should dispatch serializable actions', () async {
+      final thunk = StringLength('hello');
+      await thunk.call(store);
+      verify(store.dispatch(argThat(predicate(
+          (arg) => jsonDecode(jsonEncode(arg)) is Map<String, dynamic>))));
+    });
+
+    test('should have serializable metadata', () async {
+      final meta = Meta(null, '3c26a440-d9a7-4fc2-ac2a-8524de6f1f19');
+      final actual = meta.toJson();
+      final expected = {
+        'arg': null,
+        'requestId': '3c26a440-d9a7-4fc2-ac2a-8524de6f1f19',
+      };
+      expect(actual, equals(expected));
     });
   });
 }

@@ -1,16 +1,18 @@
+import 'dart:convert';
+
 import 'package:meta/meta.dart';
 
 /// Base abstract class to make your custom actions more uniform
-/// 
+///
 /// ### Examples
-/// 
+///
 /// ```dart
 /// @immutable
 /// class CompleteTodo extends PayloadAction<Todo, void, void> {
 ///   const CompleteTodo(Todo todo) : super(payload: todo);
 /// }
 /// ```
-/// 
+///
 /// ```dart
 /// @immutable
 /// class Fulfilled<T, P, M> extends PayloadAction<P, Meta<M>, dynamic> {
@@ -29,4 +31,10 @@ abstract class PayloadAction<Payload, Meta, Error> {
     this.meta,
     this.error,
   });
+
+  Map<String, dynamic> toJson() => {
+        'payload': jsonDecode(jsonEncode(payload)),
+        'meta': jsonDecode(jsonEncode(meta)),
+        'error': jsonDecode(jsonEncode(error)),
+      };
 }
