@@ -68,9 +68,7 @@ builder.usingDevTools('192.168.1.2:5000');
 
 // Or if you want to use loopback
 builder.usingDevTools('127.0.0.1:5000');
-
-// Important: THIS WON'T WORK
-builder.usingDevTools('localhost:5000'); // ASSERTION ERROR - REQUIRES AN IP ADDRESS STRING
+builder.usingDevTools('localhost:5000');
 ```
 
 3. Make sure everything you want to see in your devtools is json serializable, this means, all your model classes and your state itself. If you want to see your actions properly with all their payloads and stuff they should be json serializable too. The recommended way to achieve this is via the `json_serializable` package, you can check out the example project for that. Basically, all you do is this:

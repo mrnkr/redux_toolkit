@@ -9,20 +9,21 @@ typedef StoreBuilderCallback<State> = Function(StoreBuilder<State> builder);
 
 /// A friendly abstraction over the standard way of instantiating the `Store` class.
 /// Build a store with `redux_thunk` and opt-in to `redux_dev_tools` and `redux_remote_devtools`.
-/// 
+///
 /// ### Example
-/// 
+///
 /// ```dart
 /// final store = await configureStore<AppState>((builder) {
 ///   builder.withReducer(reducer);
 ///   builder.withPreloadedState(AppState.initialState());
-/// 
+///
 ///   if (Config.reduxDevtoolsEnabled) {
 ///     builder.usingDevtools(Config.reduxDevtoolsUrl);
 ///   }
 /// });
 /// ```
-Future<Store<State>> configureStore<State>(StoreBuilderCallback<State> builderCallback) {
+Future<Store<State>> configureStore<State>(
+    StoreBuilderCallback<State> builderCallback) {
   final builder = _StoreBuilder<State>();
   builderCallback(builder);
   return builder.build();
@@ -37,7 +38,7 @@ abstract class StoreBuilder<State> {
   StoreBuilder<State> withReducer(Reducer<State> reducer);
 
   /// Adds a middleware to the end of your middleware array.
-  /// 
+  ///
   /// Important: The `RemoteDevToolsMiddleware`, should you choose to use it,
   /// is handled separately and is therefore always kept in the end of the array
   /// as the guys at `redux_remote_devtools` recommend.
@@ -50,7 +51,8 @@ abstract class StoreBuilder<State> {
 }
 
 class _StoreBuilder<State> implements StoreBuilder<State> {
-  static final _ipAddrRegex = RegExp(r'^([0-9]{1,3}\.){3}[0-9]{1,3}:[0-9]{1,5}$');
+  static final _ipAddrRegex =
+      RegExp(r'^((([0-9]{1,3}\.){3}[0-9]{1,3})|(localhost)):[0-9]{1,5}$');
 
   State _preloadedState;
   Reducer<State> _reducer;
@@ -92,13 +94,15 @@ class _StoreBuilder<State> implements StoreBuilder<State> {
     if (_devTools) {
       var remoteDevtools = RemoteDevToolsMiddleware(_devToolsIpAddr);
       _middleware.add(remoteDevtools);
-      final store = DevToolsStore<State>(_reducer, middleware: _middleware, initialState: _preloadedState);
+      final store = DevToolsStore<State>(_reducer,
+          middleware: _middleware, initialState: _preloadedState);
       remoteDevtools.store = store;
       await remoteDevtools.connect();
       return store;
     }
 
-    final store = Store<State>(_reducer, middleware: _middleware, initialState: _preloadedState);
+    final store = Store<State>(_reducer,
+        middleware: _middleware, initialState: _preloadedState);
     return store;
   }
 }
