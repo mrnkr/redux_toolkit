@@ -17,6 +17,7 @@ void main() {
     Reducer<int> listReducer;
     Reducer<bool> statusReducer;
     Reducer<int> resetReducer;
+    Reducer<int> enumReducer;
 
     setUp(() {
       testStateReducer = createReducer<TestState>(initialState, (builder) {
@@ -50,6 +51,14 @@ void main() {
 
       resetReducer = createReducer<int>(5, (builder) {
         builder.addDefaultCase((state) => 0);
+      });
+
+      enumReducer = createReducer<int>(0, (builder) {
+        builder
+            .addMatcher((action) => action == CounterActions.Increment,
+                (state, action) => state + 1)
+            .addMatcher((action) => action == CounterActions.Decrement,
+                (state, action) => state - 1);
       });
     });
 
@@ -160,6 +169,16 @@ void main() {
     test('should yield 0 given the default reducer', () {
       final result = resetReducer(5, SomeUnhandledAction());
       expect(result, equals(0));
+    });
+
+    test('should yield 4 as the next state', () {
+      final result = enumReducer(3, CounterActions.Increment);
+      expect(result, equals(4));
+    });
+
+    test('should yield 24 as the next state', () {
+      final result = enumReducer(25, CounterActions.Decrement);
+      expect(result, equals(24));
     });
   });
 }

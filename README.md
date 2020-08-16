@@ -164,6 +164,27 @@ final reducer = createReducer<AppState>(
 );
 ```
 
+#### Enum actions
+
+Since enum values are not types it is not possible to add a case for these but you can still use a matcher like the following:
+
+```dart
+enum Actions {
+  increment,
+  decrement
+}
+
+final reducer = createReducer<int>(0, (builder) {
+  builder
+      .addMatcher((action) => action == Actions.increment,
+          (state, action) => state + 1)
+      .addMatcher((action) => action == Actions.decrement,
+          (state, action) => state - 1);
+});
+```
+
+`Actions.increment` would be serialized as `{ "type": "increment" }` for `remote-devtools`.
+
 #### API Reference
 
 ```dart

@@ -36,3 +36,8 @@ class TestPayloadAction extends PayloadAction {
   const TestPayloadAction({dynamic payload, dynamic meta, dynamic error})
       : super(payload: payload, meta: meta, error: error);
 }
+
+enum CounterActions {
+  Increment,
+  Decrement,
+}

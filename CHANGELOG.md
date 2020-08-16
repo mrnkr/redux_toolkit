@@ -12,3 +12,9 @@ Initial Version of the library.
 * Added docs to the example
 * Migrated the example to functional widgets using [`functional_widget`](https://github.com/rrousselGit/functional_widget)
 * Fixed code styling and setup pedantic
+
+## 0.1.2
+
+* Added support for `localhost` in `remote-devtools` url.
+* Added example for enum actions.
+* Added tests for `configure_store`.
