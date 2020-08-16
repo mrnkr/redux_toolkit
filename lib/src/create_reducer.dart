@@ -28,7 +28,7 @@ abstract class ActionReducerMapBuilder<State> {
       ActionMatcher<Action> actionMatcher, CaseReducer<State, Action> reducer);
 
   /// If none of the other options were satisfied run this reducer.
-  /// 
+  ///
   /// Defaults to the identity function (returns the previous state)
   ActionReducerMapBuilder<State> addDefaultCase(
       DefaultCaseReducer<State> reducer);
@@ -90,9 +90,9 @@ class _ActionReducerMapBuilder<State>
 
 /// Abstraction that allows to create a reducer without
 /// writing tons of `if` statements one after the other.
-/// 
+///
 /// ### Examples
-/// 
+///
 /// ```dart
 /// final todosReducer = createReducer<List<Todo>>(
 ///     List.unmodifiable([]),
@@ -104,7 +104,7 @@ class _ActionReducerMapBuilder<State>
 ///                 e.id == action.payload.id ? e.copyWith(completed: true) : e)
 ///             .toList())));
 /// ```
-/// 
+///
 /// ```dart
 /// final statusReducer = createReducer(
 ///     Map<String, String>.unmodifiable({}),
