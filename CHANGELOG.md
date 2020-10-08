@@ -18,3 +18,8 @@ Initial Version of the library.
 * Added support for `localhost` in `remote-devtools` url.
 * Added example for enum actions.
 * Added tests for `configure_store`.
+
+## 0.1.3
+
+* Updated `meta` dependency to support the latest version
+* Fixed formatting with `dartfmt`

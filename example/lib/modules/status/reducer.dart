@@ -12,6 +12,7 @@ final statusReducer = createReducer(
     (builder) => builder.addMatcher(
         (action) =>
             _isGeneric(action) &&
-            ['Pending', 'Fulfilled', 'Rejected'].contains(_typeOfAction(action)),
-        (state, action) =>
-            Map.unmodifiable({...state, _typeOfThunk(action): _typeOfAction(action)})));
+            ['Pending', 'Fulfilled', 'Rejected']
+                .contains(_typeOfAction(action)),
+        (state, action) => Map.unmodifiable(
+            {...state, _typeOfThunk(action): _typeOfAction(action)})));
