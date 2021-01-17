@@ -23,3 +23,7 @@ Initial Version of the library.
 
 * Updated `meta` dependency to support the latest version
 * Fixed formatting with `dartfmt`
+
+## 0.1.4
+
+* Updated all dependencies to support from their current minor release to the next major release.
